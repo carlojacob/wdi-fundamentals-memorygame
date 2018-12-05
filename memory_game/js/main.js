@@ -1,6 +1,26 @@
 //array storing all card options
-var cards = ['queen', 'queen', 'king', 'king'];
-
+var cards = [
+{
+	rank: "queen",
+	suit: "hearts",
+	cardImage: "images/queen-of-hearts.png"
+},
+{
+	rank: "queen",
+	suit: "diamonds",
+	cardImage: "images/queen-of-diamonds.png"
+},
+{
+	rank: "king",
+	suit: "hearts",
+	cardImage: "images/king-of-hearts.png"
+},
+{
+	rank: "king",
+	suit: "diamonds",
+	cardImage: "images/king-of-diamonds.png"
+}
+]
 //array to store selected cardsInPlay
 var cardsInPlay = [];
 
@@ -19,8 +39,10 @@ var checkForMatch = function() {
 //function to input card selections and determine if they match
 var flipCard = function(cardId) {
 
-	console.log("User flipped " + cards[cardId]); //tell user selected card
-	cardsInPlay.push(cards[cardId]); //add selected card to array for checking
+	console.log("User flipped " + cards[cardId].rank); //tell user selected card rank
+	console.log(cards[cardId].cardImage); //tell user selected card image
+	console.log(cards[cardId].suit); //tell user selected card suit
+	cardsInPlay.push(cards[cardId].rank); //add selected card rank to array for checking
 
 	checkForMatch(); //function to check cards for match
 
