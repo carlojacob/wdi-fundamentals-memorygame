@@ -1,3 +1,5 @@
+//INITIAL VARIABLE DEFINITIONS
+
 //array storing all card options
 var cards = [
 {
@@ -31,6 +33,8 @@ var cardsInPlay = [];
 
 //variable to keep track of score
 var score = 0;
+
+//variable to store ID of first card selected
 var cardId2;
 
 //***************************//
@@ -38,37 +42,29 @@ var cardId2;
 //function to create the game board
 var createBoard = function() {
 	for (i=0; i<cards.length; i++) {
-		var cardElement = document.createElement('img');
-		cardElement.setAttribute('src', "images/back.png");
-		cardElement.setAttribute('data-id', i);
-		cardElement.addEventListener('click', flipCard);
-		document.getElementById('game-board').appendChild(cardElement);
+		var cardElement = document.createElement('img'); //create image element and store in cardElement variable
+		cardElement.setAttribute('src', "images/back.png"); //set source file for image
+		cardElement.setAttribute('data-id', i); //record card number
+		cardElement.addEventListener('click', flipCard); //add event listener for card (image) clicked
+		document.getElementById('game-board').appendChild(cardElement); //add image data to div with ID game-board
 	}
 }
 
 //function to check whether two cards are selected and if they match
 var checkForMatch = function(cardId) {
-	// cardsInPlay[cardsInPlay.length-1].index = cardId;
-	// for (var i = 0; i < cardsInPlay.length-2; i++) {
-	// 	if (cardId === cardsInPlay[i].index) {	
-	// 		cardsInPlay.pop();
-	// 		return(alert("Card already selected"));
-	// 	}
-	// }
 	document.getElementsByTagName('img')[cardId].setAttribute('src',cards[cardId].cardImage);//reveal card image
 	//I wasn't able to get this to work using "this". My impression is that "this" only works if the function that 
 	//is called (flipCard above) is a part of the variable that we want "this" to refer to (cardElement above).
 	//Is this correct?
 
 	//Added functionality:
-	//	delays output so that cards show before alert.
+	//	delays output so that cards show before alerts.
 	//	resets the game board if all cards have been turned over/matched.
 	//	resets the selected cards if they do not match.
 	if (cardsInPlay.length != 0 && cardsInPlay.length % 2 === 0) {  //check whether two cards have been selected
 		if (cardsInPlay[cardsInPlay.length-2] === cardsInPlay[cardsInPlay.length-1]) { //check whether selected cards match
-		// if (cardsInPlay[cardsInPlay.length-2].rank === cardsInPlay[cardsInPlay.length-1].rank) { //check whether selected cards match
 			setTimeout(function(){alert("You've found a match!");}, 200); //output to user if cards match
-			score += 1;
+			score += 1;	
 			if (cardsInPlay.length === cards.length) { //output score and reset board when all cards are turned over
 				setTimeout(function(){alert("Your score is " + score + ".");}, 200);
 				setTimeout(resetBoard, 250);
@@ -97,7 +93,6 @@ var flipCard = function() {
 	// console.log(cards[cardId].cardImage); //tell user selected card image filename
 	// console.log(cards[cardId].suit); //tell user selected card suit
 	cardsInPlay.push(cards[cardId].rank); //add selected card rank to array for checking
-	// cardsInPlay.push(cards[cardId]); //add selected card information to array for checking
 
 	checkForMatch(cardId); //function to check cards for match
 
@@ -106,16 +101,16 @@ var flipCard = function() {
 //function to reset board
 var resetBoard = function() {
 	
-	score = 0; //reset score due to game completion or button clicked
-	cardsInPlay = [];
+	score = 0; //reset score due to game completion or "reset" button clicked
+	cardsInPlay = []; //reset array storing ranks of selected cards
 	
 
 	for (i=0; i<cards.length; i++) {
-		var cardElement = document.getElementsByTagName('img')[i];
-		cardElement.setAttribute('src', "images/back.png");
-		cardElement.setAttribute('dataid', i);
-		cardElement.addEventListener('click', flipCard);
-		document.getElementsByTagName('img')[i].innerHTML = cardElement.src;
+		var cardElement = document.getElementsByTagName('img')[i]; //select image element and store in cardElement variable
+		cardElement.setAttribute('src', "images/back.png"); //set source file for image
+		cardElement.setAttribute('dataid', i); //record card number
+		cardElement.addEventListener('click', flipCard); //add event listener for card (image) clicked
+		document.getElementsByTagName('img')[i].innerHTML = cardElement.src; //edit image data in div with ID game-board
 	}
 	
 }
